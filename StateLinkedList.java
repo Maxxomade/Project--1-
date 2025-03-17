@@ -1,46 +1,93 @@
-import java.util.Arrays;
+import java.util.List;
 
-public class TestLinkedList {
+public class StateLinkedList {
+    private Node head;
+
+    public StateLinkedList() {
+        head = null;
+    }
+
+    // Method to add a new state and its neighbors at the end of the list
+    public void addState(String stateName, List<String> neighbors) {
+        Node newNode = new Node(stateName, neighbors);
+        if (head == null) {
+            // Set head to newNode
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                // Traverse the list
+                current = current.next;
+            }
+            // Set current.next to newNode
+            current.next = newNode;
+        }
+    }
+
+    // Method to delete a state by its name
+    public void deleteState(String stateName) {
+        if (head == null) {
+            return; // List is empty
+        }
+        if (head.stateName.equals(stateName)) {
+            // Update head to head.next
+            head = head.next;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            if (current.next.stateName.equals(stateName)) {
+                // Remove the node by linking current.next to current.next.next
+                current.next = current.next.next;
+                return;
+            }
+            current = current.next;
+        }
+    }
+
+    // Method to print all states and their neighbors
+    public void printStates() {
+        Node current = head;
+        while (current != null) {
+            System.out.println("State: " + current.stateName + ", Neighbors: " + current.neighbors);
+            // Move to the next node
+            current = current.next;
+        }
+    }
+
+    //Main method for testing.
     public static void main(String[] args) {
-        StateLinkedList list = new StateLinkedList();
+        StateLinkedList stateList = new StateLinkedList();
+        List<String> neighbors1 = List.of("StateB", "StateC");
+        List<String> neighbors2 = List.of("StateA", "StateD");
+        List<String> neighbors3 = List.of("StateA");
+        List<String> neighbors4 = List.of("StateB");
 
-        // Adding states and their neighbors
-        list.addState("California", Arrays.asList("Oregon", "Nevada", "Arizona"));
-        list.addState("Texas", Arrays.asList("New Mexico", "Oklahoma", "Louisiana"));
-        list.addState("Florida", Arrays.asList("Georgia", "Alabama"));
-        list.addState("New York", Arrays.asList("Pennsylvania", "New Jersey", "Connecticut"));
+        stateList.addState("StateA", neighbors1);
+        stateList.addState("StateB", neighbors2);
+        stateList.addState("StateC", neighbors3);
+        stateList.addState("StateD", neighbors4);
 
-        // Print all states and their neighbors
-        System.out.println("List of states and neighbors:");
-        list.printStates();
+        System.out.println("States after adding:");
+        stateList.printStates();
 
-        // Delete a state
-        list.deleteState("Texas");
+        stateList.deleteState("StateB");
 
-        // Print the list after deletion
-        System.out.println("\nAfter deleting Texas:");
-        list.printStates();
+        System.out.println("\nStates after deleting StateB:");
+        stateList.printStates();
 
-        list.deleteState("California");
-        System.out.println("\nAfter deleting California:");
-        list.printStates();
+        stateList.deleteState("StateA");
 
-        list.deleteState("Florida");
-        System.out.println("\nAfter deleting Florida:");
-        list.printStates();
+        System.out.println("\nStates after deleting StateA:");
+        stateList.printStates();
 
-        list.deleteState("New York");
-        System.out.println("\nAfter deleting New York:");
-        list.printStates();
+        stateList.deleteState("StateC");
+        System.out.println("\nStates after deleting StateC:");
+        stateList.printStates();
 
-        list.deleteState("Nonexistent State");
-        System.out.println("\nAfter deleting Nonexistent State:");
-        list.printStates();
-
-        //Add a state to an empty List
-        list.addState("Montana", Arrays.asList("Idaho","Wyoming","North Dakota","South Dakota"));
-        System.out.println("\nAfter adding Montana to an empty List:");
-        list.printStates();
+        stateList.deleteState("StateD");
+        System.out.println("\nStates after deleting StateD:");
+        stateList.printStates();
 
     }
 }
