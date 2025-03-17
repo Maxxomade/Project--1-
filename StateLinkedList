@@ -9,8 +9,8 @@ public class TestLinkedList {
         list.addState("Texas", Arrays.asList("New Mexico", "Oklahoma", "Louisiana"));
         list.addState("Florida", Arrays.asList("Georgia", "Alabama"));
         list.addState("New York", Arrays.asList("Pennsylvania", "New Jersey", "Connecticut"));
- 
-// Print all states and their neighbors
+
+        // Print all states and their neighbors
         System.out.println("List of states and neighbors:");
         list.printStates();
 
@@ -33,7 +33,7 @@ public class TestLinkedList {
         System.out.println("\nAfter deleting New York:");
         list.printStates();
 
-list.deleteState("Nonexistent State");
+        list.deleteState("Nonexistent State");
         System.out.println("\nAfter deleting Nonexistent State:");
         list.printStates();
 
